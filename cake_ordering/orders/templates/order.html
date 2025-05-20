@@ -1,0 +1,66 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Выбор торта</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="{% static 'js/three.min.js' %}"></script>
+    <script src="{% static 'js/vanta.fog.min.js' %}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+    <script src="{% static 'js/order.js' %}" defer></script> 
+</head>
+<body>
+    <div id="vanta-bg"></div>
+    <div id="backplace">
+        <a href="{% url 'menu' %}?telegram_id={{ telegram_id }}" class="btn btn-primary" id="backButton">
+            ← Назад
+        </a>
+        <br />
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.telegram_id }}
+    {{ form.cake_name }}
+    {{ form.weight }}
+
+    <div class="mb-3">
+        <label for="customRange3" class="form-label">
+            Вес торта: <span id="rangeValue">{{ form.weight.value|default:'1.5' }}</span> кг
+        </label>
+        <input
+            type="range"
+            class="form-range"
+            min="1.5"
+            max="10"
+            step="0.5"
+            id="customRange3"
+            value="{{ form.weight.value|default:'1.5' }}"
+        />
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form.date.id_for_label }}" class="form-label">Дата доставки:</label>
+        {{ form.date }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Заказать</button>
+</form>
+
+
+    </div>
+    {% if success %}
+    <script>
+        alert("Ваш заказ принят! Мы свяжемся с вами в течение 10 минут.");
+        window.location.href = "{% url 'menu' %}?telegram_id={{ telegram_id }}";
+    </script>
+    {% endif %}
+</body>
+</html>
