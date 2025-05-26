@@ -129,4 +129,4 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     # Другие каталоги со статическими файлами
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles/"

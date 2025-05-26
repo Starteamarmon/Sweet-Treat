@@ -227,7 +227,7 @@ cake_build_final_markup = InlineKeyboardMarkup(cake_build_final)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     telegram_id = update.message.from_user.id
-    url = f"https://127.0.0.1:8000/orders/loader/?telegram_id={telegram_id}"
+    url = f"https://m.vk.com/"
     first_level_keyboard = [
     [
         InlineKeyboardButton("Выбрать торт", web_app=WebAppInfo(url=url)),
